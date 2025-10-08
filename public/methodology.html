@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology - Power of Tech Policy Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <div class="min-h-screen py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <header class="mb-8">
+                <nav class="mb-4">
+                    <a href="/" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                        ← Back to Simulator
+                    </a>
+                </nav>
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Methodology</h1>
+                <p class="text-xl text-gray-600">
+                    Understanding the mathematical model behind the Power of Tech Policy Simulator
+                </p>
+            </header>
+
+            <!-- Content -->
+            <main class="prose prose-lg max-w-none">
+
+                <!-- Introduction -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Introduction</h2>
+                    <p class="text-gray-700 mb-4">
+                        The pursuit of digital equity in education represents one of the most pressing challenges of our
+                        time.
+                        As educational systems worldwide grapple with the aftermath of pandemic-induced remote learning,
+                        the stark reality of unequal access to digital resources has become impossible to ignore.
+                        Students from disadvantaged backgrounds often lack the fundamental tools—reliable internet,
+                        appropriate devices, and digitally literate support networks—needed to succeed in increasingly
+                        digital learning environments.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        This digital divide doesn't exist in a vacuum; it intersects with existing socioeconomic,
+                        geographic, and demographic disparities, often amplifying educational inequalities rather
+                        than alleviating them. Research consistently demonstrates that while technology holds tremendous
+                        potential to democratize access to high-quality education, its impact is heavily dependent on
+                        implementation context and supporting infrastructure.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        Our simulation model emerged from extensive review of educational technology literature,
+                        policy implementation studies, and real-world case analyses from various national and
+                        regional initiatives. Rather than presenting technology as a silver bullet, we aim to help
+                        policymakers understand the complex interplay between different intervention strategies and
+                        their cumulative effect on digital equity outcomes.
+                    </p>
+                    <p class="text-gray-700">
+                        The tool focuses on four critical policy levers that research has consistently identified
+                        as fundamental to successful digital education initiatives: adequate funding for technology
+                        infrastructure, universal internet access, comprehensive teacher professional development,
+                        and robust community engagement. By modeling these factors together, we can explore how
+                        different policy configurations might perform across diverse contexts and populations.
+                    </p>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Mathematical Model Framework</h2>
+
+                    <p class="text-gray-700 mb-6">
+                        The simulation employs a logistic regression model to capture the non-linear relationship
+                        between policy inputs and digital equity outcomes. This approach was selected for several
+                        methodological reasons: it naturally bounds outputs between 0 and 1 (representing 0-100%
+                        impact),
+                        reflects diminishing returns at high investment levels, and accommodates the complex,
+                        interconnected nature of educational policy interventions.
+                    </p>
+
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">Core Logistic Function</h3>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                        <div class="text-center text-lg font-mono mb-2">
+                            Impact = 1 / (1 + e<sup>-(αx₁ + βx₂ + γx₃ + δx₄ + c)</sup>)
+                        </div>
+                        <div class="text-center text-sm text-gray-600">
+                            Capped at 60% maximum impact to reflect realistic expectations
+                        </div>
+                    </div>
+
+                    <p class="text-gray-700 mb-6">
+                        The model incorporates a conservative 60% maximum impact ceiling, recognizing that even
+                        optimal policy configurations cannot eliminate all sources of digital inequality. This
+                        constraint reflects real-world observations that socioeconomic factors, individual
+                        differences, and contextual variables beyond policy control continue to influence outcomes
+                        even in well-resourced environments.
+                    </p>
+
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">Policy Variables and Conservative Coefficients
+                    </h3>
+                    <div class="overflow-x-auto mb-6">
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Variable</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Coefficient</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Description</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Range</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">x₁</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">α = 0.0008</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Per-student Budget (€/year)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">€500 - €5,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">x₂</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">β = 0.015</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Internet Access Rate (%)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">50% - 100%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">x₃</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">γ = 0.6</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Teacher Training Index</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0 - 1</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">x₄</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">δ = 0.35</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Community Support Level</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0 - 1</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">c</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">c = -4.2</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Intercept</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">Coefficient Development and Rationale</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Budget Allocation (α = 0.0008)</h4>
+                            <p>Our conservative budget coefficient reflects the reality that simply increasing
+                                technology spending doesn't automatically translate to improved outcomes. Meta-analyses
+                                of educational technology investments show that while funding is necessary, the
+                                relationship between spending and student achievement is mediated by numerous factors
+                                including implementation quality, teacher preparedness, and ongoing support systems.
+                                The coefficient was calibrated based on studies from OECD countries showing modest
+                                effect sizes for technology spending when not accompanied by comprehensive reform
+                                efforts.</p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Internet Connectivity (β = 0.015)</h4>
+                            <p>While internet access is often viewed as a prerequisite for digital learning,
+                                our model recognizes that connectivity alone doesn't guarantee educational success.
+                                The coefficient accounts for factors such as connection quality, reliability, and
+                                digital literacy among users. Research from rural broadband initiatives demonstrates
+                                that universal access, while crucial, must be coupled with digital skills training
+                                and relevant content to achieve meaningful educational impact.</p>
+                        </div>
+
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Teacher Professional Development (γ = 0.6)</h4>
+                            <p>Despite being reduced from earlier versions, teacher training remains the
+                                highest-weighted
+                                variable in our model, consistent with decades of educational research emphasizing the
+                                centrality of teacher quality. However, we've adopted a more conservative stance
+                                recognizing
+                                that even excellent training programs face implementation challenges including time
+                                constraints,
+                                technological barriers, and institutional resistance to change. The coefficient reflects
+                                real-world observations that teacher development is necessary but not sufficient for
+                                comprehensive digital transformation.</p>
+                        </div>
+
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Community Engagement (δ = 0.35)</h4>
+                            <p>Community support encompasses parental digital literacy, local institutional capacity,
+                                and broader social capital around education. Our conservative weighting acknowledges
+                                that
+                                while community factors strongly influence individual student outcomes, their effect on
+                                system-wide digital equity metrics may be more gradual and harder to measure. The
+                                coefficient
+                                is informed by research on social capital and educational achievement, recognizing both
+                                the importance and the complexity of community-level interventions.</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Baseline Intercept (c = -4.2)</h4>
+                            <p>The negative intercept ensures that minimal policy inputs yield appropriately low
+                                impact predictions, reflecting the reality that piecemeal interventions rarely achieve
+                                significant systematic change. This conservative baseline was established through
+                                analysis
+                                of failed or limited educational technology initiatives, many of which invested in
+                                infrastructure without addressing the broader ecosystem requirements for successful
+                                digital integration.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Output Metrics -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Output Metrics and Global Modeling</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Primary Impact Metrics</h3>
+                            <div class="space-y-3">
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h4 class="font-medium text-gray-700">Digital Divide Reduction (%)</h4>
+                                    <p class="text-sm text-gray-600">
+                                        Direct output of the logistic model, representing the percentage
+                                        reduction in digital inequalities based on the combined policy
+                                        interventions. Capped at 60% to reflect realistic expectations.
+                                    </p>
+                                </div>
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h4 class="font-medium text-gray-700">Average Engagement Time</h4>
+                                    <p class="text-sm text-gray-600">
+                                        Calculated as: (Impact Score × 9) + 1, mapping the impact score
+                                        to a range of 1-10 hours of weekly digital learning engagement,
+                                        based on educational technology usage research.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Secondary Impact Indicators</h3>
+                            <p class="text-gray-700 mb-3 text-sm">
+                                To provide concrete context, we translate the impact score into tangible
+                                outcomes based on an assumed base population of 750,000 students, reflecting
+                                a medium-sized education system:
+                            </p>
+                            <div class="space-y-2 text-sm">
+                                <div class="bg-gray-50 rounded p-2">
+                                    <strong>Students Equipped:</strong> Impact Score × 750,000 × 0.3
+                                </div>
+                                <div class="bg-gray-50 rounded p-2">
+                                    <strong>Schools Improved:</strong> Impact Score × 2,500
+                                </div>
+                                <div class="bg-gray-50 rounded p-2">
+                                    <strong>Teachers Trained:</strong> Impact Score × 15,000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-6">
+                        <h3 class="text-lg font-medium text-gray-800 mb-4">Global Regional Modeling</h3>
+                        <p class="text-gray-700 mb-4">
+                            The simulator incorporates a world map interface that applies the core model
+                            to different global regions, each with contextually appropriate baseline
+                            conditions and challenges. This approach recognizes that digital equity
+                            initiatives must be adapted to local contexts while maintaining the
+                            underlying analytical framework.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <h4 class="font-medium text-blue-800 mb-2">North America</h4>
+                                <p class="text-blue-700 mb-2">
+                                    High baseline technology access with focus on equity gaps and
+                                    advanced integration challenges.
+                                </p>
+                                <div class="text-xs text-blue-600">
+                                    <strong>Key Challenges:</strong> Urban-rural divide,
+                                    socioeconomic disparities, integration quality
+                                </div>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4">
+                                <h4 class="font-medium text-green-800 mb-2">Europe</h4>
+                                <p class="text-green-700 mb-2">
+                                    Emphasis on digital citizenship, privacy, and comprehensive
+                                    policy frameworks.
+                                </p>
+                                <div class="text-xs text-green-600">
+                                    <strong>Key Challenges:</strong> Cross-border coordination,
+                                    multilingual content, regulatory compliance
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4">
+                                <h4 class="font-medium text-purple-800 mb-2">Asia-Pacific</h4>
+                                <p class="text-purple-700 mb-2">
+                                    Diverse contexts from highly developed to emerging economies,
+                                    with mobile-first approaches.
+                                </p>
+                                <div class="text-xs text-purple-600">
+                                    <strong>Key Challenges:</strong> Infrastructure development,
+                                    cultural adaptation, scale management
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <h4 class="font-medium text-orange-800 mb-2">Latin America</h4>
+                                <p class="text-orange-700 mb-2">
+                                    Focus on accessibility, community-based approaches, and
+                                    overcoming infrastructure limitations.
+                                </p>
+                                <div class="text-xs text-orange-600">
+                                    <strong>Key Challenges:</strong> Connectivity gaps,
+                                    resource constraints, institutional capacity
+                                </div>
+                            </div>
+                            <div class="bg-red-50 rounded-lg p-4">
+                                <h4 class="font-medium text-red-800 mb-2">Africa</h4>
+                                <p class="text-red-700 mb-2">
+                                    Innovative mobile solutions and community partnerships
+                                    addressing fundamental access challenges.
+                                </p>
+                                <div class="text-xs text-red-600">
+                                    <strong>Key Challenges:</strong> Basic infrastructure,
+                                    multilingual content, sustainable funding
+                                </div>
+                            </div>
+                            <div class="bg-teal-50 rounded-lg p-4">
+                                <h4 class="font-medium text-teal-800 mb-2">Middle East</h4>
+                                <p class="text-teal-700 mb-2">
+                                    Balancing technological advancement with cultural
+                                    considerations and regional stability.
+                                </p>
+                                <div class="text-xs text-teal-600">
+                                    <strong>Key Challenges:</strong> Cultural adaptation,
+                                    political stability, resource distribution
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2">Regional Adaptation Methodology</h4>
+                            <p class="text-gray-700 text-sm">
+                                Each regional model maintains the core logistic regression framework while
+                                incorporating region-specific baseline conditions, population scales, and
+                                contextual challenges. This approach enables cross-regional comparison while
+                                respecting local contexts and implementation realities.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Data Sources -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Data Sources and Empirical Foundation</h2>
+
+                    <p class="text-gray-700 mb-6">
+                        The model parameters and variable ranges are grounded in extensive analysis of educational
+                        technology initiatives across diverse contexts. Our approach synthesizes quantitative data
+                        from major international databases with qualitative insights from policy implementation
+                        studies and program evaluations.
+                    </p>
+
+                    <div class="space-y-6 text-gray-700">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Budget Allocation Data</h3>
+                            <p class="mb-2">
+                                The €500-€5,000 range reflects actual per-student technology spending observed
+                                across OECD member states, drawn from the Programme for International Student
+                                Assessment (PISA) school questionnaire data and UNESCO Institute for Statistics
+                                education finance indicators.
+                            </p>
+                            <p class="mb-2">
+                                Lower-bound estimates (€500) represent minimal technology allocations typical
+                                of resource-constrained systems, covering basic device maintenance and limited
+                                software licensing. Upper-bound figures (€5,000) align with comprehensive
+                                digital learning environments featuring one-to-one device programs, robust
+                                infrastructure, and ongoing technical support.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Primary Sources:</strong> OECD Education at a Glance series, World Bank
+                                Education Statistics, European Commission Digital Education Action Plan budgetary
+                                analyses.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Internet Connectivity Metrics</h3>
+                            <p class="mb-2">
+                                Connectivity rates are calibrated against Eurostat's Digital Economy and Society
+                                Index (DESI), International Telecommunication Union (ITU) household connectivity
+                                surveys, and school-specific access data from the European Schoolnet studies.
+                            </p>
+                            <p class="mb-2">
+                                Our 50-100% range captures the reality that even in developed economies,
+                                significant connectivity gaps persist, particularly affecting rural, low-income,
+                                and marginalized communities. The model accounts for both home and school access,
+                                recognizing that students need reliable connectivity across learning environments.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Primary Sources:</strong> Eurostat DESI indicators, ITU World
+                                Telecommunication/ICT Indicators Database, UNICEF State of the World's Children
+                                digital connectivity reports.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Teacher Professional Development
+                                Framework</h3>
+                            <p class="mb-2">
+                                The teacher training index synthesizes multiple competency frameworks, primarily
+                                the European Framework for Digital Competence for Educators (DigCompEdu) and
+                                UNESCO's ICT Competency Framework for Teachers. The 0-1 scale maps progression
+                                from basic digital literacy to advanced pedagogical integration.
+                            </p>
+                            <p class="mb-2">
+                                Our indexing incorporates both formal training completion rates and practical
+                                implementation measures, recognizing that effective digital pedagogy requires
+                                sustained practice and support beyond initial certification. The model weights
+                                ongoing professional learning communities and peer collaboration alongside
+                                formal training hours.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Primary Sources:</strong> European Training Foundation digital skills
+                                assessments, Teaching and Learning International Survey (TALIS) ICT modules,
+                                International Society for Technology in Education (ISTE) Standards implementation
+                                studies.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Community Engagement Indicators</h3>
+                            <p class="mb-2">
+                                The community support variable represents a composite measure incorporating
+                                parental digital literacy, local institutional capacity, and broader social
+                                capital around educational technology. This multidimensional approach recognizes
+                                that student outcomes are deeply influenced by their broader social ecosystem.
+                            </p>
+                            <p class="mb-2">
+                                Key indicators include parental participation in digital learning activities,
+                                availability of community technology centers, local government support for
+                                educational technology initiatives, and presence of public-private partnerships
+                                focused on digital equity. The measure also incorporates socioeconomic factors
+                                that enable or constrain family engagement with school technology programs.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Primary Sources:</strong> European Social Survey education modules,
+                                Programme for International Assessment of Adult Competencies (PIAAC) digital
+                                literacy data, local case studies from Digital Education Action Plan evaluations.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-gray-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Regional Adaptation and Global Context
+                            </h3>
+                            <p class="mb-2">
+                                While the core model parameters reflect European educational contexts, the
+                                integrated world map functionality draws from global educational technology
+                                initiatives to provide region-specific insights. Each geographic region
+                                incorporates contextual factors including economic development levels,
+                                infrastructure maturity, and cultural attitudes toward educational technology.
+                            </p>
+                            <p class="mb-2">
+                                Regional variations account for different baseline conditions, policy priorities,
+                                and implementation challenges. For instance, sub-Saharan African contexts
+                                emphasize mobile-first approaches and community-based learning models, while
+                                Nordic countries focus on advanced integration and digital citizenship education.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Primary Sources:</strong> UNESCO Global Education Monitoring Reports,
+                                World Bank SABER (Systems Approach for Better Education Results) assessments,
+                                regional education organization policy analyses.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Limitations -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Limitations and Methodological Considerations
+                    </h2>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-medium text-yellow-800 mb-2">Critical Disclaimer</h3>
+                        <p class="text-yellow-700 mb-3">
+                            This simulator serves as an educational and exploratory tool designed to facilitate
+                            policy discussions and strategic planning. The mathematical relationships and
+                            coefficients represent informed estimates based on literature synthesis and expert
+                            consultation rather than definitive empirical validation.
+                        </p>
+                        <p class="text-yellow-700">
+                            Users should interpret results as indicative of potential trends and relationships
+                            rather than precise predictions. Real-world policy outcomes depend on numerous
+                            contextual factors that cannot be fully captured in any simplified model.
+                        </p>
+                    </div>
+
+                    <h3 class="text-lg font-medium text-gray-800 mb-3">Fundamental Model Limitations</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Temporal Dynamics</h4>
+                            <p class="mb-2">
+                                The model presents a static snapshot of policy impact without accounting for
+                                the temporal dimensions of educational change. In reality, technology
+                                interventions often exhibit complex time-lag effects, with infrastructure
+                                investments showing immediate measurable changes while pedagogical
+                                transformations may take years to fully manifest.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Implication:</strong> Short-term policy evaluations may underestimate
+                                long-term impact, while our model provides instantaneous feedback that doesn't
+                                reflect implementation timelines.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Contextual Variation</h4>
+                            <p class="mb-2">
+                                Educational systems operate within vastly different cultural, economic, and
+                                institutional contexts that significantly influence technology adoption and
+                                effectiveness. Our model necessarily abstracts from these contextual nuances,
+                                potentially over-generalizing relationships that vary substantially across
+                                different settings.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Implication:</strong> Policies showing high impact in the simulator
+                                may face implementation challenges in specific contexts not captured by our
+                                variables, such as bureaucratic resistance, cultural preferences, or
+                                competing policy priorities.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Interaction Effects and Non-Linearity</h4>
+                            <p class="mb-2">
+                                While the logistic function captures some non-linear relationships, the model
+                                assumes additive effects between policy variables. In practice, educational
+                                interventions often exhibit complex interaction effects where the impact of
+                                one variable depends heavily on the levels of others, creating threshold
+                                effects and synergies not captured in our formulation.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Implication:</strong> Certain policy combinations may be more or less
+                                effective than the model suggests, particularly at extreme values or when
+                                addressing specific sub-populations.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Outcome Measurement Challenges</h4>
+                            <p class="mb-2">
+                                Digital equity is a multifaceted construct that encompasses access, skills,
+                                meaningful use, and outcomes. Our model reduces this complexity to quantifiable
+                                metrics that may not capture the full spectrum of digital equity dimensions,
+                                particularly qualitative aspects of student experience and learning quality.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Implication:</strong> High impact scores in the simulator should be
+                                interpreted alongside other indicators of educational quality and student
+                                well-being not explicitly modeled here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-medium text-gray-800 mb-3 mt-6">Specific Technical Limitations</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium text-gray-800 mb-2">Variable Scope</h4>
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li>• No explicit rural/urban differentiation</li>
+                                <li>• Limited socioeconomic stratification</li>
+                                <li>• Absence of special needs considerations</li>
+                                <li>• No linguistic diversity factors</li>
+                                <li>• Limited institutional capacity variables</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium text-gray-800 mb-2">Model Structure</h4>
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li>• Assumes linear coefficient relationships</li>
+                                <li>• No dynamic feedback mechanisms</li>
+                                <li>• Static population assumptions</li>
+                                <li>• Limited geographic granularity</li>
+                                <li>• No uncertainty quantification</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-medium text-gray-800 mb-3 mt-6">Research and Development Priorities</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Empirical Validation</h4>
+                            <p class="mb-2">
+                                Priority development involves collecting longitudinal data from real-world
+                                policy interventions to validate and refine model parameters. This includes
+                                partnership with educational authorities implementing digital equity initiatives
+                                to track outcomes over time and adjust coefficients based on observed relationships.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Potential Approaches:</strong> Randomized controlled trials,
+                                quasi-experimental designs, difference-in-differences analyses,
+                                mixed-methods evaluation frameworks.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-indigo-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Advanced Modeling Techniques</h4>
+                            <p class="mb-2">
+                                Future iterations could incorporate machine learning approaches to capture
+                                non-linear interactions, agent-based modeling to represent complex system
+                                dynamics, and Bayesian frameworks to quantify uncertainty in predictions
+                                and enable more nuanced policy recommendations.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Potential Approaches:</strong> Ensemble modeling, neural network
+                                architectures, hierarchical Bayesian models, system dynamics approaches.
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Geographic and Cultural Adaptation</h4>
+                            <p class="mb-2">
+                                Expanding the model to incorporate region-specific parameters, cultural
+                                context variables, and local implementation capacity indicators would
+                                enhance relevance for diverse global contexts while maintaining the tool's
+                                comparative utility for cross-national policy analysis.
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <strong>Potential Approaches:</strong> Multi-level modeling, cultural
+                                dimension frameworks, institutional analysis approaches, participatory
+                                model development with local stakeholders.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Technical Implementation -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Policy Implementation and Real-World
+                        Considerations</h2>
+
+                    <p class="text-gray-700 mb-6">
+                        While the mathematical model provides a framework for understanding potential policy
+                        impacts, successful implementation of digital equity initiatives requires careful
+                        attention to contextual factors, stakeholder engagement, and adaptive management
+                        strategies. This section bridges the gap between theoretical modeling and practical
+                        policy implementation.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-indigo-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Implementation Sequencing and Timing</h3>
+                            <p class="text-gray-700 mb-3">
+                                The model's instantaneous feedback contrasts with the reality that educational
+                                technology initiatives require careful sequencing and extended timelines.
+                                Successful programs typically follow a phased approach: infrastructure
+                                development, teacher preparation, pilot implementation, scaled deployment,
+                                and continuous improvement.
+                            </p>
+                            <div class="bg-indigo-50 rounded-lg p-4 text-sm">
+                                <strong>Typical Implementation Timeline:</strong> Infrastructure (6-12 months),
+                                Teacher Training (12-18 months), Pilot Programs (6-12 months),
+                                Full Deployment (12-24 months), Impact Assessment (ongoing)
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Stakeholder Engagement and Change
+                                Management</h3>
+                            <p class="text-gray-700 mb-3">
+                                Digital equity initiatives succeed or fail largely based on stakeholder
+                                buy-in and effective change management. The model's community support
+                                variable captures some of this complexity, but implementation requires
+                                systematic engagement with teachers, parents, students, administrators,
+                                and community leaders.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div class="bg-green-50 rounded-lg p-3">
+                                    <strong>Key Stakeholder Groups:</strong>
+                                    <ul class="mt-2 space-y-1">
+                                        <li>• Teaching staff and administrators</li>
+                                        <li>• Students and families</li>
+                                        <li>• Community organizations</li>
+                                        <li>• Technology providers</li>
+                                        <li>• Local government officials</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 rounded-lg p-3">
+                                    <strong>Engagement Strategies:</strong>
+                                    <ul class="mt-2 space-y-1">
+                                        <li>• Participatory planning processes</li>
+                                        <li>• Regular communication and feedback</li>
+                                        <li>• Pilot program involvement</li>
+                                        <li>• Success story sharing</li>
+                                        <li>• Addressing concerns proactively</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Risk Mitigation and Adaptive Management
+                            </h3>
+                            <p class="text-gray-700 mb-3">
+                                Educational technology initiatives face numerous implementation risks, from
+                                technical failures to resistance to change. Effective policy implementation
+                                requires systematic risk assessment, mitigation strategies, and adaptive
+                                management approaches that can respond to unexpected challenges.
+                            </p>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white border border-gray-300 rounded-lg text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left font-medium text-gray-700">Risk Category</th>
+                                            <th class="px-4 py-2 text-left font-medium text-gray-700">Common Issues</th>
+                                            <th class="px-4 py-2 text-left font-medium text-gray-700">Mitigation
+                                                Strategies</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 text-gray-600">
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium">Technical</td>
+                                            <td class="px-4 py-3">Infrastructure failures, device issues, connectivity
+                                                problems</td>
+                                            <td class="px-4 py-3">Redundancy planning, technical support, maintenance
+                                                contracts</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium">Organizational</td>
+                                            <td class="px-4 py-3">Resistance to change, capacity constraints, competing
+                                                priorities</td>
+                                            <td class="px-4 py-3">Change management, professional development,
+                                                leadership support</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium">Financial</td>
+                                            <td class="px-4 py-3">Budget overruns, funding shortfalls, hidden costs</td>
+                                            <td class="px-4 py-3">Comprehensive budgeting, contingency funds, phased
+                                                implementation</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium">Social</td>
+                                            <td class="px-4 py-3">Digital divide amplification, unequal access, family
+                                                barriers</td>
+                                            <td class="px-4 py-3">Equity monitoring, targeted support, community
+                                                partnerships</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Monitoring and Evaluation Framework</h3>
+                            <p class="text-gray-700 mb-3">
+                                The simulator provides simplified output metrics, but comprehensive policy
+                                evaluation requires multi-dimensional assessment frameworks that capture
+                                both intended and unintended outcomes. Effective monitoring systems track
+                                implementation progress, identify emerging challenges, and inform adaptive
+                                management decisions.
+                            </p>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                <div class="bg-orange-50 rounded-lg p-3">
+                                    <strong>Input Indicators:</strong>
+                                    <ul class="mt-2 space-y-1">
+                                        <li>• Budget allocation and spending</li>
+                                        <li>• Device distribution rates</li>
+                                        <li>• Teacher training completion</li>
+                                        <li>• Infrastructure deployment</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-orange-50 rounded-lg p-3">
+                                    <strong>Process Indicators:</strong>
+                                    <ul class="mt-2 space-y-1">
+                                        <li>• Implementation timeline adherence</li>
+                                        <li>• Stakeholder satisfaction</li>
+                                        <li>• Technical support quality</li>
+                                        <li>• Usage patterns and frequency</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-orange-50 rounded-lg p-3">
+                                    <strong>Outcome Indicators:</strong>
+                                    <ul class="mt-2 space-y-1">
+                                        <li>• Student achievement gains</li>
+                                        <li>• Digital literacy improvements</li>
+                                        <li>• Engagement and motivation</li>
+                                        <li>• Equity gap reduction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Sustainability and Long-Term Viability
+                            </h3>
+                            <p class="text-gray-700 mb-3">
+                                Many educational technology initiatives achieve short-term success but
+                                struggle with long-term sustainability. The model's static nature doesn't
+                                capture the ongoing resource requirements, evolving technology needs,
+                                and institutional capacity building necessary for sustained impact.
+                            </p>
+                            <div class="bg-teal-50 rounded-lg p-4 text-sm">
+                                <strong>Sustainability Factors:</strong> Ongoing funding mechanisms,
+                                institutional capacity development, technology refresh cycles,
+                                continuous professional development, community ownership,
+                                policy continuity across political changes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Technical Implementation -->
+                <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Technical Implementation</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Technology Stack</h3>
+                            <ul class="space-y-1 text-gray-700">
+                                <li><strong>Frontend:</strong> Vue.js 3 with Composition API</li>
+                                <li><strong>Build Tool:</strong> Vite</li>
+                                <li><strong>Styling:</strong> Tailwind CSS</li>
+                                <li><strong>Mathematics:</strong> Math.js library</li>
+                                <li><strong>Deployment:</strong> Static hosting (Netlify/Vercel)</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Key Features</h3>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>Real-time calculation updates</li>
+                                <li>Responsive mobile-friendly design</li>
+                                <li>Accessibility compliance (WCAG 2.1)</li>
+                                <li>Interactive tooltips and explanations</li>
+                                <li>Progressive enhancement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- References -->
+                <section class="bg-white rounded-lg shadow-sm p-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">References and Further Reading</h2>
+
+                    <div class="space-y-4 text-gray-700">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Core Policy and Framework Literature</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>European Commission.</strong> (2020). <em>Digital Education Action Plan
+                                        2021-2027: Resetting education and training for the digital age.</em> Brussels:
+                                    European Commission. Available at:
+                                    https://education.ec.europa.eu/focus-topics/digital-education/action-plan</p>
+                                <p><strong>Redecker, C.</strong> (2017). <em>European Framework for the Digital
+                                        Competence of Educators: DigCompEdu.</em> EUR 28775 EN. Luxembourg: Publications
+                                    Office of the European Union. doi:10.2760/159770</p>
+                                <p><strong>UNESCO.</strong> (2018). <em>UNESCO ICT Competency Framework for
+                                        Teachers.</em> Paris: UNESCO. Available at:
+                                    https://unesdoc.unesco.org/ark:/48223/pf0000265721</p>
+                                <p><strong>OECD.</strong> (2021). <em>21st-Century Readers: Developing Literacy Skills
+                                        in a Digital World.</em> PISA, OECD Publishing. doi:10.1787/a83d84cb-en</p>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Educational Technology Impact Studies
+                            </h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Selwyn, N.</strong> (2016). <em>Is technology good for education?</em>
+                                    Cambridge: Polity Press.</p>
+                                <p><strong>Tamim, R. M., Bernard, R. M., Borokhovski, E., Abrami, P. C., & Schmid, R.
+                                        F.</strong> (2011). What forty years of research says about the impact of
+                                    technology on learning: A second-order meta-analysis and validation study.
+                                    <em>Review of educational research, 81</em>(1), 4-28.</p>
+                                <p><strong>Hattie, J.</strong> (2008). <em>Visible learning: A synthesis of over 800
+                                        meta-analyses relating to achievement.</em> London: Routledge.</p>
+                                <p><strong>Cuban, L.</strong> (2001). <em>Oversold and underused: Computers in the
+                                        classroom.</em> Cambridge, MA: Harvard University Press.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Digital Divide and Equity Research</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Reich, J., & Mehta, J.</strong> (2020). Failure to disrupt: Why technology
+                                    alone can't transform education. Cambridge, MA: Harvard University Press.</p>
+                                <p><strong>Warschauer, M., & Matuchniak, T.</strong> (2010). New technology and digital
+                                    worlds: Analyzing evidence of equity in access, use, and outcomes. <em>Review of
+                                        research in education, 34</em>(1), 179-225.</p>
+                                <p><strong>Van Dijk, J. A.</strong> (2020). <em>The digital divide.</em> Cambridge:
+                                    Polity Press.</p>
+                                <p><strong>Reardon, S. F., & Portilla, X. A.</strong> (2016). Recent trends in income,
+                                    racial, and ethnic school readiness gaps at kindergarten entry. <em>AERA Open,
+                                        2</em>(3), 1-18.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Statistical Methods and Modeling</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X.</strong> (2013). <em>Applied
+                                        logistic regression</em> (3rd ed.). New York: Wiley.</p>
+                                <p><strong>Raudenbush, S. W., & Bryk, A. S.</strong> (2002). <em>Hierarchical linear
+                                        models: Applications and data analysis methods</em> (2nd ed.). Thousand Oaks,
+                                    CA: Sage.</p>
+                                <p><strong>Shadish, W. R., Cook, T. D., & Campbell, D. T.</strong> (2002).
+                                    <em>Experimental and quasi-experimental designs for generalized causal
+                                        inference.</em> Boston: Houghton Mifflin.</p>
+                                <p><strong>Hill, C. J., Bloom, H. S., Black, A. R., & Lipsey, M. W.</strong> (2008).
+                                    Empirical benchmarks for interpreting effect sizes in research. <em>Child
+                                        development perspectives, 2</em>(3), 172-177.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">International Data Sources</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>OECD.</strong> (2019). <em>Education at a Glance 2019: OECD Indicators.</em>
+                                    Paris: OECD Publishing. doi:10.1787/f8d7880d-en</p>
+                                <p><strong>UNESCO Institute for Statistics.</strong> (2020). <em>Global Education
+                                        Monitoring Report 2020: Technology in education - A tool on whose terms?</em>
+                                    Paris: UNESCO.</p>
+                                <p><strong>European Commission.</strong> (2021). <em>Digital Economy and Society Index
+                                        (DESI) 2021.</em> Brussels: European Commission.</p>
+                                <p><strong>International Telecommunication Union.</strong> (2021). <em>Measuring digital
+                                        development: Facts and figures 2021.</em> Geneva: ITU.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Regional and Case Study Evidence</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Trucano, M.</strong> (2016). <em>SABER-ICT Framework Paper.</em> Washington,
+                                    DC: World Bank Group.</p>
+                                <p><strong>Bando, R., Gallego, F., Gertler, P., & Fonseca, D. R.</strong> (2017). Books
+                                    or laptops? The effect of shifting from printed to digital delivery of educational
+                                    content on learning. <em>Economics of Education Review, 61</em>, 162-173.</p>
+                                <p><strong>Cristia, J., Ibarrarán, P., Cueto, S., Santiago, A., & Severín, E.</strong>
+                                    (2017). Technology and child development: Evidence from the One Laptop per Child
+                                    program. <em>American Economic Journal: Applied Economics, 9</em>(3), 295-320.</p>
+                                <p><strong>Fairlie, R. W., & Robinson, J.</strong> (2013). Experimental evidence on the
+                                    effects of home computers on academic achievement among schoolchildren. <em>American
+                                        Economic Journal: Applied Economics, 5</em>(3), 211-240.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+                            <h3 class="text-lg font-medium text-blue-800 mb-2">Methodological Notes</h3>
+                            <p class="text-blue-700 text-sm mb-2">
+                                This bibliography represents a selective overview of key works informing the
+                                simulator's development. The educational technology literature is vast and
+                                rapidly evolving, with new research continuously emerging on digital equity,
+                                technology integration, and policy effectiveness.
+                            </p>
+                            <p class="text-blue-700 text-sm">
+                                Users interested in deeper engagement with specific aspects of the model
+                                should consult the original sources and their citation networks. The
+                                simulator's open-source nature enables continued refinement based on
+                                emerging evidence and user feedback.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Footer -->
+            <footer class="mt-12 text-center text-gray-500 text-sm">
+                <p>Power of Tech Policy Simulator | Educational Tool | 2025</p>
+            </footer>
+
+        </div>
+    </div>
+</body>
+
+</html>
